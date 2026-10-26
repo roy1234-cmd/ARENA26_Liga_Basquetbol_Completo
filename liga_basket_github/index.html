@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c1112">
+  <meta name="description" content="Arena 26: plataforma interactiva de gestión de liga de básquetbol, resultados, jugadores y clasificación.">
+  <title>ARENA 26 · Liga de Básquetbol</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏀</text></svg>">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--bg:#0b1011;--surface:#131a1c;--surface2:#182124;--line:#2b3638;--text:#f5f7f0;--muted:#839396;--lime:#ddfa5d;--violet:#ba9bff;--cyan:#75d8df;--pink:#ff8fb4;--danger:#ff8f94;--radius:18px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:14px 'Space Grotesk',Arial,sans-serif;background-image:radial-gradient(ellipse 55% 30% at 90% 0%,#293b2655,transparent),linear-gradient(90deg,#ffffff04 1px,transparent 1px);background-size:auto,74px 74px}button,input,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+.site-shell{max-width:1600px;margin:auto;padding:0 clamp(20px,4.5vw,70px)}.site-header{min-height:95px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #2a3435}.brand{background:none;border:0;color:white;display:flex;align-items:center;gap:10px;padding:0;flex-shrink:0}.brand-mark{width:48px;height:48px;border:2px solid var(--lime);color:var(--lime);display:grid;place-items:center;border-radius:50%;transform:rotate(-18deg)}.brand-mark span{font-size:30px;line-height:1}.brand-word{font:900 32px/.9 'Barlow Condensed',sans-serif;letter-spacing:1px;text-align:left}.brand-word>span{color:var(--lime)}.brand-word small{font:700 8px 'Space Grotesk';display:block;color:#93a19e;letter-spacing:2.4px;margin-top:7px}.nav-pills{display:flex;align-items:center;gap:5px;padding:5px;background:#141c1e;border:1px solid #293336;border-radius:50px}.nav-link{border:0;background:transparent;color:#95a4a5;font-weight:700;font-size:11px;padding:12px 17px;border-radius:35px;white-space:nowrap;transition:.16s}.nav-link:hover{color:white}.nav-link.active{background:var(--lime);color:#101512}.header-tag{display:flex;align-items:center;gap:8px;white-space:nowrap;font-size:10px;font-weight:800;letter-spacing:.5px;color:#c3d1c9}.header-tag-arrow{display:grid;place-items:center;width:28px;height:28px;background:#24312f;color:var(--lime);border-radius:50%;font-size:15px;margin-left:4px}.live-dot,.mini-pulse,.green-dot{width:8px;height:8px;display:inline-block;border-radius:50%;background:#b3ff83;box-shadow:0 0 0 4px #a8ff6b16;flex-shrink:0}
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:34px 0 29px}.breadcrumb,.section-index{font-size:10px;letter-spacing:2px;font-weight:800;color:var(--lime)}.breadcrumb{margin:0 0 11px}.breadcrumb span{color:#8a999a}.page-head h1{font:900 clamp(32px,4.2vw,54px)/.98 'Barlow Condensed',sans-serif;letter-spacing:.1px;text-transform:uppercase;margin:0}.dot-title{color:var(--lime)}.page-intro{margin:10px 0 0;font-size:12px;color:#829293}.head-side{display:flex;gap:16px;align-items:center}.date-label{font-size:11px;color:#91a0a2;white-space:nowrap;text-transform:uppercase;font-weight:700}.btn{display:inline-flex;align-items:center;justify-content:center;gap:17px;min-height:43px;padding:12px 19px;border-radius:9px;border:1px solid transparent;font-size:11px;font-weight:800;letter-spacing:.1px;white-space:nowrap;transition:transform .18s,filter .18s}.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}.btn-accent{background:var(--lime);color:#161c16}.btn-white{background:#101915;color:var(--lime);border-color:#101915}.btn-outline{background:transparent;border-color:#52605f;color:#e5f3ee}.btn-ghost{background:#263033;color:#cad5d4}.btn:focus-visible,.nav-link:focus-visible,.action-btn:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.hero{position:relative;min-height:347px;background:var(--lime);color:#101915;overflow:hidden;border-radius:24px;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:25px;padding:37px 45px}.hero:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 58% 20%,#f9ffbe77,transparent 38%),repeating-linear-gradient(120deg,transparent 0 76px,#101a0d09 77px 78px);pointer-events:none}.court-lines{position:absolute;right:15%;top:-45px;width:56%;height:420px;transform:rotate(-12deg);opacity:.12;color:#0e1811}.court-lines svg{width:100%;height:100%}.hero-copy,.match-display{z-index:1;position:relative}.tag-row{display:flex;align-items:center;gap:17px}.status-pill{font-size:9px;letter-spacing:1.2px;border:1px solid #2f4526;border-radius:35px;padding:7px 11px;display:inline-flex;align-items:center;gap:8px;font-weight:900}.mini-pulse{background:#162514;box-shadow:none;width:6px;height:6px}.tag-year{font-size:10px;font-weight:900;letter-spacing:1px;color:#40543d}.hero h2{font:900 clamp(50px,6.1vw,91px)/.82 'Barlow Condensed',sans-serif;letter-spacing:-1px;margin:29px 0 18px}.hero h2 span{font-weight:700;letter-spacing:-2px;color:#456a28}.hero-copy p{max-width:420px;font-size:13px;line-height:1.6;color:#364833;margin:0 0 22px}.match-display{background:#11191a;color:white;border:1px solid #263537;border-radius:20px;box-shadow:17px 17px 0 #1e352527;transform:rotate(1.1deg);padding:20px;min-width:0}.display-top,.display-bottom{display:flex;justify-content:space-between;align-items:center;gap:9px}.display-top{border-bottom:1px solid #2a3638;padding:0 0 17px;font-size:10px;font-weight:800;letter-spacing:.8px;color:#a0ada9}.display-live{display:flex;align-items:center;gap:8px;font-size:8px;color:var(--lime);background:#29371c;padding:7px 9px;border-radius:30px}.display-live span{width:6px;height:6px;border-radius:50%;background:var(--lime)}.match-lineup{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;min-height:175px;text-align:center}.match-club{min-width:0}.club-orbit{width:66px;height:66px;border-radius:50%;border:2px solid var(--lime);background:#28311b;color:var(--lime);display:grid;place-items:center;margin:0 auto 10px;font:900 27px 'Barlow Condensed',sans-serif;transform:rotate(-15deg)}.club-orbit.away{border-color:var(--violet);background:#282338;color:var(--violet)}.match-club strong{font:800 14px 'Barlow Condensed';letter-spacing:.5px;display:block;white-space:normal;line-height:1}.match-club small{display:block;margin-top:6px;color:#819192;font-size:9px;letter-spacing:1px}.match-vs{font:900 36px 'Barlow Condensed';color:#a8b7b0;transform:rotate(-6deg)}.display-bottom{border-top:1px solid #2a3638;padding-top:14px;font-size:9px;color:#8e9a9b;letter-spacing:.7px}.display-bottom strong{font-size:10px;color:var(--lime)}
+.section-title{margin:37px 0 17px;display:flex;align-items:end;justify-content:space-between}.section-title h3{font:900 30px/.95 'Barlow Condensed';margin:9px 0 0;text-transform:uppercase}.section-side{font-size:9px;font-weight:800;color:#718281;letter-spacing:1px;display:flex;align-items:center;gap:9px}.green-dot{width:6px;height:6px}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}.stat-card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--lime);border-radius:15px;padding:20px;min-height:174px;position:relative;overflow:hidden}.stat-card:nth-child(2){border-top-color:var(--violet)}.stat-card:nth-child(3){border-top-color:var(--cyan)}.stat-card:nth-child(4){border-top-color:var(--pink)}.stat-card:after{content:'+';position:absolute;right:9px;top:29px;color:#32403f;font-size:70px;font-family:'Barlow Condensed';font-weight:900}.stat-symbol{color:var(--lime);font-size:22px;line-height:1;display:block}.stat-card:nth-child(2) .stat-symbol{color:var(--violet)}.stat-card:nth-child(3) .stat-symbol{color:var(--cyan)}.stat-card:nth-child(4) .stat-symbol{color:var(--pink)}.stat-card p{color:#788888;font-size:10px;font-weight:800;letter-spacing:1.5px;margin:14px 0 8px}.stat-number{display:flex;align-items:baseline;gap:8px}.stat-number strong{font:900 58px/.8 'Barlow Condensed';z-index:1}.stat-number span{font-size:9px;color:#8a9a9a;font-weight:800;letter-spacing:1px}.stat-track{height:4px;border-radius:6px;background:#273333;margin-top:20px}.stat-track span{display:block;height:100%;width:55%;background:var(--lime);border-radius:6px}.track-purple{background:var(--violet)!important;width:72%!important}.track-blue{background:var(--cyan)!important;width:40%!important}.track-pink{background:var(--pink)!important;width:67%!important}
+.dashboard-grid{display:grid;grid-template-columns:minmax(0,1.68fr) minmax(310px,1fr);gap:17px;margin-top:20px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;min-width:0;margin-bottom:20px}.big-panel{padding:30px}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:23px}.panel-heading h3{font:900 30px/.9 'Barlow Condensed',sans-serif;text-transform:uppercase;margin:10px 0 6px;letter-spacing:.2px}.panel-heading p{font-size:11px;color:#829091;margin:0}.heading-star{color:var(--lime)}.round-action{border:1px solid #445452;background:transparent;color:var(--lime);font-size:19px;width:41px;height:41px;border-radius:50%}.module-badge{border:1px solid #3b5240;color:var(--lime);padding:10px 13px;border-radius:40px;font-size:9px;font-weight:900;letter-spacing:1.7px}.table-wrap{overflow-x:auto;width:100%}table{width:100%;border-collapse:collapse;min-width:580px;font-size:11px}th{padding:15px 12px;background:#1b2527;text-align:left;color:#819292;font-size:9px;font-weight:900;letter-spacing:1.3px;text-transform:uppercase}th:first-child{border-radius:9px 0 0 9px}th:last-child{border-radius:0 9px 9px 0}td{padding:17px 12px;border-bottom:1px solid #253133;color:#b6c3c1}tbody tr:hover{background:#1a2425}tbody tr:last-child td{border-bottom:0}.team-cell{display:flex;align-items:center;gap:10px;color:#f2f4ed;font-weight:800;white-space:nowrap}.team-badge{flex-shrink:0;width:36px;height:36px;display:grid;place-items:center;border:1px solid #546b44;border-radius:50%;background:#25341e;color:var(--lime);font:900 13px 'Barlow Condensed'}.score{font:900 17px 'Barlow Condensed';color:var(--text);white-space:nowrap}.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #4d6955;background:#23372c;color:#baffad;border-radius:30px;padding:7px 10px;font-size:9px;font-weight:900}.pill.pending{background:#30311f;border-color:#646142;color:#e3de8b}.action-btn{border:1px solid #3e4c4e;background:#273234;color:#d0dbd7;border-radius:7px;padding:8px 10px;font-size:10px;font-weight:800;margin:0 4px 4px 0}.action-btn:hover{background:#354449}.action-btn.danger{color:#ff9da3;border-color:#694247;background:#342226}.empty{padding:30px;text-align:center;color:#829493;line-height:1.6}.leaders{min-height:150px}.leader{display:flex;align-items:center;gap:11px;border-bottom:1px solid #283537;padding:15px 0}.leader:last-child{border:0}.leader:first-child{background:#dffa5b0b;border-radius:9px;padding:15px 9px}.leader .rank{font:900 23px 'Barlow Condensed';color:var(--lime);width:27px}.leader .team-badge{width:41px;height:41px}.leader-name{flex:1;min-width:0;font-size:11px;font-weight:800}.leader-name small{display:block;font-size:9px;color:#78898a;font-weight:500;margin-top:5px}.leader strong{font:900 24px 'Barlow Condensed';color:var(--lime)}.leader strong small{display:block;font:700 8px 'Space Grotesk';color:#7c8d8e}.leader-empty{font-size:12px;color:#8e9e9e;line-height:1.7;padding:20px 2px}
+.form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;align-items:end;padding:20px;background:#1a2526;border:1px solid #344242;border-radius:13px;margin-bottom:28px}.form-grid label,.modal-fields label{display:grid;gap:8px;color:#b0c0bb;font-size:10px;font-weight:800;letter-spacing:.25px}input,select{width:100%;min-width:0;border:1px solid #3d4a4b;border-radius:8px;padding:12px 11px;min-height:42px;background:#11191a;color:#eff7ed;font-size:12px;outline:none}input::placeholder{color:#627374}input:focus,select:focus{border-color:var(--lime);box-shadow:0 0 0 3px #ddfa5d1a}select option{background:#182224}.form-button{min-height:42px}.table-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:6px 0 15px}.table-toolbar h4{font:900 20px 'Barlow Condensed';text-transform:uppercase;margin:0}.count{border-radius:40px;background:var(--lime);color:#192219;padding:3px 8px;font:900 11px 'Space Grotesk';margin-left:5px}.search-input{max-width:250px}.filters{display:flex;gap:10px}.filters select{width:175px}.ranking-strip{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--lime);color:#17201a;padding:17px 19px;border-radius:10px;margin-bottom:15px}.ranking-strip strong{font:900 22px 'Barlow Condensed'}.ranking-strip span{font-size:10px;font-weight:800;letter-spacing:1px}.top-rank{color:var(--lime);font-weight:900}.footnote{font-size:11px;color:#7e8e8b;margin:17px 0 0;line-height:1.6}
+.backup-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.backup-card{border:1px solid #354444;background:#1a2526;border-radius:15px;padding:26px}.backup-icon{width:48px;height:48px;display:grid;place-items:center;border:1px solid #8fa645;color:var(--lime);font-size:23px;border-radius:50%}.backup-card h4{font:900 24px 'Barlow Condensed';text-transform:uppercase;margin:18px 0 6px}.backup-card p{color:#899a98;font-size:12px;line-height:1.7;min-height:52px}.backup-card form{display:grid;gap:12px}.backup-card .btn{justify-self:start}.demo-reset{margin-top:18px;padding:23px;background:linear-gradient(100deg,#29362b,#1a2526);border:1px dashed #587550;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:16px}.demo-reset strong{font:900 23px 'Barlow Condensed'}.demo-reset p{font-size:11px;color:#94a99b;margin:5px 0 0}footer{display:flex;align-items:center;gap:8px;border-top:1px solid #273233;margin-top:27px;padding:27px 0 34px;color:#6f8581;font-size:9px;font-weight:800;letter-spacing:1.2px}footer>span:first-child{color:var(--lime);font-size:16px}.footer-right{margin-left:auto}
+dialog{width:min(480px,calc(100% - 25px));border:1px solid #455850;border-radius:19px;color:white;background:#161f21;padding:25px;box-shadow:0 20px 90px #000b}dialog::backdrop{background:#020606b9}.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px}.modal-header h3{font:900 32px 'Barlow Condensed';margin:11px 0 0;text-transform:uppercase}.modal-fields{display:grid;gap:16px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:25px}.icon-button{border:1px solid #435251;background:#293536;color:white;padding:9px 12px;border-radius:9px}#toast{position:fixed;z-index:20;right:24px;bottom:25px;max-width:min(420px,calc(100% - 40px));background:var(--lime);color:#162016;border:1px solid #a9d63a;border-radius:11px;padding:14px 19px;font-size:12px;font-weight:800;box-shadow:0 8px 30px #000a;opacity:0;pointer-events:none;transform:translateY(13px);transition:.2s}#toast.show{opacity:1;transform:translateY(0)}#toast.error{background:#ee7d87;border-color:#f8a5ad}
+@media(max-width:1220px){.site-shell{padding:0 25px}.site-header{flex-wrap:wrap;padding:18px 0}.nav-pills{order:3;width:100%;overflow-x:auto;justify-content:center}.hero{padding:32px;grid-template-columns:1fr 1fr}.hero h2{font-size:65px}.dashboard-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.hero{display:block;padding:31px}.hero-copy{max-width:600px}.hero h2{font-size:68px}.match-display{max-width:480px;margin:24px auto 3px}.court-lines{right:-15%;top:10%}.header-tag{display:none}.nav-pills{justify-content:flex-start}.page-head{align-items:flex-start}.head-side{flex-direction:column;align-items:flex-end}.stats-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){.site-shell{padding:0 14px}.site-header{min-height:auto}.brand-word{font-size:27px}.brand-mark{width:40px;height:40px}.nav-pills{gap:2px;padding:3px}.nav-link{padding:10px 13px;font-size:10px}.page-head{display:block;padding:26px 0 22px}.page-head h1{font-size:38px}.head-side{flex-direction:row;align-items:center;justify-content:space-between;margin-top:18px}.head-side .btn{padding:10px}.hero{padding:23px;border-radius:17px}.hero h2{font-size:57px}.tag-year{display:none}.match-display{padding:15px}.club-orbit{height:56px;width:56px;font-size:23px}.match-lineup{min-height:148px}.match-vs{font-size:30px}.section-title{align-items:flex-start}.section-side{display:none}.stats-grid{gap:9px}.stat-card{padding:13px;min-height:149px}.stat-card p{font-size:8px}.stat-number strong{font-size:46px}.stat-number span{font-size:8px}.panel,.big-panel{padding:17px}.panel-heading h3{font-size:25px}.panel-heading{align-items:flex-start}.panel-heading .btn{padding:9px}.module-badge{display:none}.form-grid{grid-template-columns:1fr;padding:14px}.table-toolbar{display:block}.table-toolbar h4{margin-bottom:10px}.search-input{max-width:none}.filters{display:grid;grid-template-columns:1fr}.filters select{width:100%}.backup-grid{grid-template-columns:1fr}.demo-reset{display:block}.demo-reset .btn{margin-top:13px}.ranking-strip{display:block}.ranking-strip span{display:block;margin-top:6px}.footer-right{display:none}}
+
+</style>
+  <script type="module">
+// Demo para GitHub Pages: funciona sin PHP. Cada visitante conserva sus propios datos.
+const DATA_KEY = 'ligaProExamenV1';
+let data = {equipos: [], jugadores: [], partidos: []};
+let modalMode = '';
+const $ = selector => document.querySelector(selector);
+const $$ = selector => [...document.querySelectorAll(selector)];
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const nameOf = id => data.equipos.find(t => t.id === id)?.nombre || 'Equipo eliminado';
+const dateOf = value => value ? value.split('-').reverse().join('/') : 'Sin fecha';
+const initials = name => String(name).trim().split(/\s+/).slice(0,2).map(p => p.charAt(0)).join('').toUpperCase();
+const teamCell = id => `<span class="team-cell"><span class="team-badge">${esc(initials(nameOf(id)))}</span>${esc(nameOf(id))}</span>`;
+const empty = (columns, msg) => `<tr><td colspan="${columns}"><div class="empty">${esc(msg)}</div></td></tr>`;
+const table = (heads, rows) => `<table><thead><tr>${heads.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table>`;
+const normalized = text => String(text || '').toLocaleLowerCase('es');
+const search = section => normalized($(`[data-search="${section}"]`)?.value || '');
+const sortByDate = matches => matches.slice().sort((a,b) => a.fecha.localeCompare(b.fecha));
+
+function exampleData() {
+  const teams = [
+    ['t1','Cóndores Abancay','Miguel Quispe','Abancay'],
+    ['t2','Titanes BC','Ángel Huamán','Andahuaylas'],
+    ['t3','Halcones Andinos','David Vargas','Abancay'],
+    ['t4','Leones del Sur','Luis Mendoza','Cusco'],
+    ['t5','Panteras Club','José Rojas','Chalhuanca'],
+    ['t6','Águilas Azules','Carlos Flores','Abancay']
+  ].map(([id,nombre,entrenador,ciudad]) => ({id,nombre,entrenador,ciudad}));
+  const players = [
+    ['Luis Quispe',7,'t1'],['Marco Ramos',23,'t1'],['Diego Huamán',10,'t2'],['Andrés Flores',8,'t2'],
+    ['Franco Vásquez',11,'t3'],['Jorge Cárdenas',6,'t3'],['Pedro Sánchez',24,'t4'],['Mario Díaz',9,'t4'],
+    ['Elías Torres',30,'t5'],['Kevin Gutiérrez',5,'t5'],['Renato Chávez',12,'t6'],['Josué Paredes',21,'t6']
+  ].map(([nombre,numero,equipo],i) => ({id:`j${i+1}`,nombre,numero,equipo}));
+  const fixtures = [
+    ['t1','t2','2026-10-13',81,76],['t3','t4','2026-10-14',68,72],['t5','t6','2026-10-15',94,88],
+    ['t1','t3','2026-10-17',70,66],['t2','t5','2026-10-19',86,80],['t6','t4','2026-10-21',74,80],
+    ['t2','t4','2026-10-24',76,73],['t1','t5','2026-10-28'],['t3','t6','2026-10-30'],
+    ['t2','t6','2026-11-02'],['t4','t5','2026-11-05']
+  ];
+  const matches = fixtures.map(([local,visitante,fecha,puntosLocal,puntosVisitante],i) => {
+    const finished = puntosLocal !== undefined;
+    return {id:`p${i+1}`,local,visitante,fecha,estado:finished?'finalizado':'programado',
+      ...(finished?{puntosLocal,puntosVisitante}:{})};
+  });
+  return {equipos:teams,jugadores:players,partidos:matches};
+}
+
+const clone = state => JSON.parse(JSON.stringify(state));
+const uid = () => typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+const fail = message => {throw new Error(message);};
+
+function validateBackup(state) {
+  if (!state || !['equipos','jugadores','partidos'].every(key => Array.isArray(state[key]))) fail('El respaldo debe contener equipos, jugadores y partidos.');
+  if (state.equipos.length>500 || state.jugadores.length>10000 || state.partidos.length>20000) fail('El archivo contiene demasiados registros.');
+  for(const kind of ['equipos','jugadores','partidos']) {
+    const ids = new Set();
+    for (const item of state[kind]) {
+      if (!item || typeof item.id !== 'string' || !item.id || item.id.length>128 || ids.has(item.id)) fail(`Identificadores incorrectos en ${kind}.`);
+      ids.add(item.id);
+    }
+  }
+  const teamIds = new Set(state.equipos.map(t=>t.id));
+  for (const t of state.equipos) {
+    if (typeof t.nombre !== 'string' || !t.nombre.trim() || t.nombre.length>60 ||
+        (t.entrenador!=null && (typeof t.entrenador !== 'string' || t.entrenador.length>60)) ||
+        (t.ciudad!=null && (typeof t.ciudad !== 'string' || t.ciudad.length>60))) fail('Datos inválidos de equipos.');
+  }
+  for (const j of state.jugadores) {
+    if (typeof j.nombre !== 'string' || !j.nombre.trim() || j.nombre.length>80 ||
+        !Number.isInteger(Number(j.numero)) || Number(j.numero)<0 || Number(j.numero)>99 || !teamIds.has(j.equipo)) fail('Datos inválidos de jugadores.');
+  }
+  for (const p of state.partidos) {
+    if (!teamIds.has(p.local) || !teamIds.has(p.visitante) || p.local === p.visitante ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(p.fecha) || !['programado','finalizado'].includes(p.estado)) fail('Datos inválidos de partidos.');
+    if (p.estado === 'finalizado' && (!Number.isInteger(Number(p.puntosLocal)) || !Number.isInteger(Number(p.puntosVisitante)) ||
+        Number(p.puntosLocal)<0 || Number(p.puntosVisitante)<0 || Number(p.puntosLocal)>300 || Number(p.puntosVisitante)>300 ||
+        Number(p.puntosLocal) === Number(p.puntosVisitante))) fail('El respaldo contiene resultados incorrectos.');
+  }
+  return {equipos:state.equipos,jugadores:state.jugadores,partidos:state.partidos};
+}
+
+function saveLocal(state) {
+  localStorage.setItem(DATA_KEY,JSON.stringify(state));
+  data = state;
+  return clone(state);
+}
+
+function loadLocal() {
+  const raw = localStorage.getItem(DATA_KEY);
+  if (!raw) return saveLocal(exampleData());
+  try {return validateBackup(JSON.parse(raw));}
+  catch {throw new Error('No se pudieron leer los datos guardados. Usa la opción Reiniciar demostración.');}
+}
+
+const ensureTeam = (state,id) => {
+  if (!state.equipos.some(t=>t.id===id)) fail('Selecciona un equipo registrado.');
+};
+
+async function api(path, method='GET', body=null) {
+  if (method==='GET' && path==='estado') return clone(loadLocal());
+  if (path==='importar' && method==='POST') {
+    const file = body?.get('archivo');
+    if (!(file instanceof File) || file.size>2*1024*1024) fail('Selecciona un archivo JSON de hasta 2 MB.');
+    let incoming;
+    try {incoming=JSON.parse(await file.text());} catch {fail('No se pudo leer el archivo JSON.');}
+    return saveLocal(validateBackup(incoming));
+  }
+
+  const [kind,encodedId] = path.split('/');
+  if (!['equipos','jugadores','partidos'].includes(kind) || !['POST','PATCH','DELETE'].includes(method)) fail('Acción no disponible.');
+  const id = encodedId ? decodeURIComponent(encodedId) : null;
+  const state = clone(data);
+  const collection = state[kind];
+  const previous = id ? collection.find(item=>item.id===id) : null;
+  if (id && !previous) fail('No se encontró el registro.');
+
+  if (method==='DELETE') {
+    if (!id) fail('Selecciona un registro.');
+    state[kind] = collection.filter(item=>item.id!==id);
+    if (kind==='equipos') {
+      state.jugadores = state.jugadores.filter(j=>j.equipo!==id);
+      state.partidos = state.partidos.filter(p=>p.local!==id && p.visitante!==id);
+    }
+    return saveLocal(state);
+  }
+
+  const input = {...body};
+  let updated;
+  if (kind==='equipos') {
+    const nombre=String(input.nombre || '').trim();
+    if (nombre.length<2 || nombre.length>60) fail('El nombre del equipo debe tener entre 2 y 60 caracteres.');
+    if (collection.some(t=>t.id!==id && normalized(t.nombre)===normalized(nombre))) fail('Ese nombre de equipo ya está registrado.');
+    const entrenador=String(input.entrenador || '').trim(),ciudad=String(input.ciudad || '').trim();
+    if (entrenador.length>60 || ciudad.length>60) fail('Entrenador y ciudad admiten máximo 60 caracteres.');
+    updated={id:id||uid(),nombre,entrenador,ciudad};
+  } else if (kind==='jugadores') {
+    const nombre=String(input.nombre || '').trim(),numero=Number(input.numero),equipo=input.equipo;
+    if (nombre.length<2 || nombre.length>80) fail('El nombre del jugador debe tener entre 2 y 80 caracteres.');
+    if (!Number.isInteger(numero)||numero<0||numero>99) fail('El dorsal debe ser un número del 0 al 99.');
+    ensureTeam(state,equipo);
+    if (collection.some(j=>j.id!==id && j.equipo===equipo && Number(j.numero)===numero)) fail('Ese dorsal ya está usado en el equipo.');
+    updated={id:id||uid(),nombre,numero,equipo};
+  } else {
+    const local=input.local ?? previous?.local,visitante=input.visitante ?? previous?.visitante,fecha=input.fecha ?? previous?.fecha;
+    ensureTeam(state,local); ensureTeam(state,visitante);
+    if (local===visitante) fail('Un equipo no puede jugar contra sí mismo.');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) fail('Selecciona una fecha válida.');
+    const teamsChanged=previous && (local!==previous.local || visitante!==previous.visitante);
+    const estado=teamsChanged?'programado':(input.estado ?? previous?.estado ?? 'programado');
+    updated={id:id||uid(),local,visitante,fecha,estado};
+    if (estado==='finalizado') {
+      const a=Number(input.puntosLocal ?? previous?.puntosLocal),b=Number(input.puntosVisitante ?? previous?.puntosVisitante);
+      if (![a,b].every(n=>Number.isInteger(n) && n>=0 && n<=300)) fail('El marcador debe contener números entre 0 y 300.');
+      if (a===b) fail('El partido no puede terminar empatado.');
+      updated.puntosLocal=a;updated.puntosVisitante=b;
+    }
+  }
+  if (method==='POST') collection.push(updated);
+  else collection[collection.findIndex(item=>item.id===id)] = updated;
+  return saveLocal(state);
+}
+
+function toast(message, isError = false) {
+  const box = $('#toast');
+  box.textContent = message;
+  box.classList.toggle('error', isError);
+  box.classList.add('show');
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => box.classList.remove('show'), 3600);
+}
+
+async function mutate(path, method, body, message) {
+  try {
+    data = await api(path, method, body);
+    render();
+    toast(message);
+    return true;
+  } catch (e) {toast(e.message, true); return false;}
+}
+
+function showView(view) {
+  $$('.view').forEach(el => el.classList.toggle('hidden', el.id !== `view-${view}`));
+  $$('.nav-link').forEach(el => el.classList.toggle('active', el.dataset.view === view));
+  const titles = {inicio:['El centro del juego.','Un nuevo nivel para administrar tu liga de básquetbol.'],equipos:['Clubes en competencia.','Cada equipo tiene su historia. Organiza la tuya.'],jugadores:['La plantilla completa.','Los protagonistas de cada victoria.'],partidos:['Todos los enfrentamientos.','El calendario y los marcadores de tu campeonato.'],posiciones:['Camino al campeonato.','Solo uno puede terminar en la cima.'],respaldo:['Control de datos.','Conserva, restaura o reinicia la información de la liga.']};
+  $('#page-title').textContent = titles[view]?.[0] || titles.inicio[0];
+  $('#page-subtitle').textContent = titles[view]?.[1] || titles.inicio[1];
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function fillOptions() {
+  const values = data.equipos.map(t => `<option value="${esc(t.id)}">${esc(t.nombre)}</option>`).join('');
+  ['#jugador-equipo','#partido-local','#partido-visitante'].forEach(selector => {
+    const field = $(selector), old = field.value;
+    field.innerHTML = `<option value="">${data.equipos.length ? 'Seleccionar equipo' : 'Registra primero un equipo'}</option>${values}`;
+    if (data.equipos.some(t => t.id === old)) field.value = old;
+    field.disabled = data.equipos.length === 0;
+  });
+}
+
+function renderTeams() {
+  const query = search('equipos');
+  const teams = data.equipos.filter(t => normalized(`${t.nombre} ${t.ciudad} ${t.entrenador}`).includes(query));
+  $('#count-equipos').textContent = data.equipos.length;
+  $('#list-equipos').innerHTML = table(['Equipo','Entrenador','Ciudad','Jugadores','Acciones'],teams.length ? teams.map(t =>
+    `<tr><td>${teamCell(t.id)}</td><td>${esc(t.entrenador || '—')}</td><td>${esc(t.ciudad || '—')}</td><td><strong>${data.jugadores.filter(j => j.equipo === t.id).length}</strong></td><td><button class="action-btn" data-edit="equipo" data-id="${esc(t.id)}">Editar</button><button class="action-btn danger" data-delete="equipo" data-id="${esc(t.id)}">Eliminar</button></td></tr>`).join('') : empty(5,'No hay equipos que mostrar.'));
+}
+
+function renderPlayers() {
+  const query = search('jugadores');
+  const players = data.jugadores.filter(j => normalized(`${j.nombre} ${nameOf(j.equipo)} ${j.numero}`).includes(query));
+  $('#count-jugadores').textContent = data.jugadores.length;
+  $('#list-jugadores').innerHTML = table(['Jugador','Dorsal','Equipo','Acciones'],players.length ? players.map(j =>
+    `<tr><td><strong>${esc(j.nombre)}</strong></td><td><span class="score">#${esc(j.numero)}</span></td><td>${teamCell(j.equipo)}</td><td><button class="action-btn" data-edit="jugador" data-id="${esc(j.id)}">Editar</button><button class="action-btn danger" data-delete="jugador" data-id="${esc(j.id)}">Eliminar</button></td></tr>`).join('') : empty(4,'No hay jugadores que mostrar.'));
+}
+
+function matchRow(p, home = false) {
+  const done = p.estado === 'finalizado';
+  return `<tr><td>${esc(dateOf(p.fecha))}</td><td>${teamCell(p.local)}</td><td><span class="score">${done ? `${esc(p.puntosLocal)} – ${esc(p.puntosVisitante)}` : 'VS'}</span></td><td>${teamCell(p.visitante)}</td><td><span class="pill ${done ? '' : 'pending'}">${done ? 'Finalizado' : 'Programado'}</span></td>${home ? '' : `<td><button class="action-btn" data-edit="resultado" data-id="${esc(p.id)}">${done ? 'Marcador' : 'Resultado'}</button><button class="action-btn" data-edit="partido" data-id="${esc(p.id)}">Editar</button>${done ? `<button class="action-btn" data-reset="${esc(p.id)}">Reabrir</button>` : ''}<button class="action-btn danger" data-delete="partido" data-id="${esc(p.id)}">Eliminar</button></td>`}</tr>`;
+}
+
+function renderMatches() {
+  const query = search('partidos'), filter = $('#match-filter').value;
+  const all = sortByDate(data.partidos);
+  const matches = all.filter(p => (filter === 'todos' || p.estado === filter) && normalized(`${nameOf(p.local)} ${nameOf(p.visitante)} ${p.fecha}`).includes(query));
+  $('#count-partidos').textContent = data.partidos.length;
+  $('#list-partidos').innerHTML = table(['Fecha','Local','Marcador','Visitante','Estado','Acciones'],matches.length ? matches.map(p => matchRow(p)).join('') : empty(6,'No hay partidos con ese filtro.'));
+  const upcoming = all.filter(p => p.estado === 'programado').slice(0,4);
+  $('#home-matches').innerHTML = table(['Fecha','Local','Marcador','Visitante','Estado'],upcoming.length ? upcoming.map(p => matchRow(p,true)).join('') : empty(5,'Programa un partido para verlo aquí.'));
+}
+
+function standings() {
+  const standings = data.equipos.map(team => ({id:team.id,nombre:team.nombre,pj:0,pg:0,pp:0,pf:0,pc:0}));
+  const lookup = new Map(standings.map(s => [s.id,s]));
+  data.partidos.filter(p => p.estado === 'finalizado').forEach(p => {
+    const local = lookup.get(p.local), away = lookup.get(p.visitante);
+    if (!local || !away) return;
+    const a = Number(p.puntosLocal), b = Number(p.puntosVisitante);
+    if (!Number.isFinite(a) || !Number.isFinite(b)) return;
+    local.pj++; away.pj++; local.pf += a; local.pc += b; away.pf += b; away.pc += a;
+    if (a > b) {local.pg++; away.pp++;} else if (b > a) {away.pg++; local.pp++;}
+  });
+  return standings.sort((a,b) => b.pg-a.pg || (b.pf-b.pc)-(a.pf-a.pc) || b.pf-a.pf || a.nombre.localeCompare(b.nombre));
+}
+
+function renderStandings() {
+  const ranking = standings();
+  $('#list-posiciones').innerHTML = table(['Pos.','Equipo','PJ','PG','PP','PF','PC','DIF'],ranking.length ? ranking.map((t,i) =>
+    `<tr><td class="${i < 3 ? 'top-rank' : ''}">${i+1}${i===0?' 🏆':''}</td><td>${teamCell(t.id)}</td><td>${t.pj}</td><td><strong>${t.pg}</strong></td><td>${t.pp}</td><td>${t.pf}</td><td>${t.pc}</td><td><strong>${t.pf-t.pc > 0 ? '+' : ''}${t.pf-t.pc}</strong></td></tr>`).join('') : empty(8,'Registra equipos para generar la clasificación.'));
+  $('#home-standings').innerHTML = ranking.length ? ranking.slice(0,4).map((t,i) =>
+    `<div class="leader"><span class="rank">${i+1}</span><span class="team-badge">${esc(initials(t.nombre))}</span><span class="leader-name">${esc(t.nombre)}<small>${t.pj} partidos jugados</small></span><strong>${t.pg}<small>VICTORIAS</small></strong></div>`).join('') : '<p class="leader-empty">Cuando registres equipos y resultados, aquí aparecerán los líderes del torneo.</p>';
+}
+
+function renderStats() {
+  $('#stat-equipos').textContent = data.equipos.length;
+  $('#stat-jugadores').textContent = data.jugadores.length;
+  $('#stat-partidos').textContent = data.partidos.filter(p => p.estado !== 'finalizado').length;
+  $('#stat-finalizados').textContent = data.partidos.filter(p => p.estado === 'finalizado').length;
+}
+
+function renderHero() {
+  const next = sortByDate(data.partidos.filter(p => p.estado !== 'finalizado'))[0];
+  $('#hero-local').textContent = next ? nameOf(next.local) : 'LIGA';
+  $('#hero-visitante').textContent = next ? nameOf(next.visitante) : 'COMPLETADA';
+  $('#hero-fecha').textContent = next ? dateOf(next.fecha) : 'SIN PARTIDOS PENDIENTES';
+}
+
+function render() {fillOptions(); renderTeams(); renderPlayers(); renderMatches(); renderStandings(); renderStats(); renderHero();}
+
+function optionList(selected = '') {
+  return `<option value="">Seleccionar equipo</option>` + data.equipos.map(t => `<option value="${esc(t.id)}" ${t.id === selected ? 'selected' : ''}>${esc(t.nombre)}</option>`).join('');
+}
+
+function field(label,name,value = '',type = 'text',extra = '') {
+  return `<label>${esc(label)}<input name="${name}" type="${type}" value="${esc(value)}" ${extra}></label>`;
+}
+
+function selectField(label,name,selected) {
+  return `<label>${esc(label)}<select name="${name}" required>${optionList(selected)}</select></label>`;
+}
+
+function openModal(type,id) {
+  const source = type === 'equipo' ? data.equipos : type === 'jugador' ? data.jugadores : data.partidos;
+  const item = source.find(x => x.id === id);
+  if (!item) return;
+  modalMode = type;
+  const names = {equipo:'Editar equipo',jugador:'Editar jugador',partido:'Editar partido',resultado:'Registrar marcador'};
+  $('#modal-title').textContent = names[type];
+  $('#modal-kicker').textContent = type === 'resultado' ? `${nameOf(item.local)} VS ${nameOf(item.visitante)}` : 'MODIFICAR REGISTRO';
+  const content = type === 'equipo'
+    ? field('Nombre del equipo','nombre',item.nombre,'text','required minlength="2" maxlength="60"') + field('Entrenador','entrenador',item.entrenador,'text','maxlength="60"') + field('Ciudad','ciudad',item.ciudad,'text','maxlength="60"')
+    : type === 'jugador'
+      ? field('Nombre completo','nombre',item.nombre,'text','required minlength="2" maxlength="80"') + field('Dorsal','numero',item.numero,'number','required min="0" max="99"') + selectField('Equipo','equipo',item.equipo)
+      : type === 'partido'
+        ? selectField('Equipo local','local',item.local) + selectField('Equipo visitante','visitante',item.visitante) + field('Fecha','fecha',item.fecha,'date','required')
+        : field(nameOf(item.local),'puntosLocal',item.puntosLocal ?? 0,'number','required min="0" max="300"') + field(nameOf(item.visitante),'puntosVisitante',item.puntosVisitante ?? 0,'number','required min="0" max="300"');
+  $('#modal-fields').innerHTML = content;
+  $('#form-dialog').dataset.id = id;
+  $('#record-dialog').showModal();
+}
+
+function closeModal() {$('#record-dialog').close();}
+
+function bindForms() {
+  const forms = [
+    {id:'#form-equipo',endpoint:'equipos',names:['nombre','entrenador','ciudad'],text:'Equipo registrado correctamente.'},
+    {id:'#form-jugador',endpoint:'jugadores',names:['nombre','numero','equipo'],text:'Jugador añadido correctamente.'},
+    {id:'#form-partido',endpoint:'partidos',names:['local','visitante','fecha'],text:'Partido programado correctamente.'},
+  ];
+  forms.forEach(({id,endpoint,names,text}) => {
+    $(id).addEventListener('submit', async event => {
+      event.preventDefault();
+      const f = new FormData(event.currentTarget);
+      const body = Object.fromEntries(names.map(n => [n,f.get(n)]));
+      if (endpoint === 'partidos' && body.local === body.visitante) return toast('Selecciona dos equipos diferentes.',true);
+      if (await mutate(endpoint,'POST',body,text)) event.currentTarget.reset();
+    });
+  });
+  $('#form-dialog').addEventListener('submit', async event => {
+    event.preventDefault();
+    const id = event.currentTarget.dataset.id;
+    const f = new FormData(event.currentTarget);
+    const body = Object.fromEntries(f.entries());
+    if (modalMode === 'resultado') {
+      if (Number(body.puntosLocal) === Number(body.puntosVisitante)) return toast('No se permiten empates: juega un tiempo extra.',true);
+      body.estado = 'finalizado';
+    }
+    const endpoint = modalMode === 'equipo' ? 'equipos' : modalMode === 'jugador' ? 'jugadores' : 'partidos';
+    if (await mutate(`${endpoint}/${encodeURIComponent(id)}`,'PATCH',body,'Cambios guardados correctamente.')) closeModal();
+  });
+}
+
+function bindButtons() {
+  document.addEventListener('click', async event => {
+    const goto = event.target.closest('[data-view],[data-go]');
+    if (goto) {showView(goto.dataset.view || goto.dataset.go); return;}
+    if (event.target.closest('[data-close]')) {closeModal(); return;}
+    const edit = event.target.closest('[data-edit]');
+    if (edit) {openModal(edit.dataset.edit,edit.dataset.id); return;}
+    const reset = event.target.closest('[data-reset]');
+    if (reset) {
+      if (confirm('¿Volver este encuentro a Programado? Se borrará su resultado.')) await mutate(`partidos/${encodeURIComponent(reset.dataset.reset)}`,'PATCH',{estado:'programado'},'El partido volvió a Programado.');
+      return;
+    }
+    const del = event.target.closest('[data-delete]');
+    if (del) {
+      const type = del.dataset.delete, noun = {equipo:'equipo y todos sus jugadores y partidos',jugador:'jugador',partido:'partido'}[type];
+      if (!confirm(`¿Eliminar este ${noun}? Esta acción no se puede deshacer.`)) return;
+      const endpoint = {equipo:'equipos',jugador:'jugadores',partido:'partidos'}[type];
+      await mutate(`${endpoint}/${encodeURIComponent(del.dataset.id)}`,'DELETE',null,'Registro eliminado.');
+    }
+  });
+  $$('[data-search]').forEach(el => el.addEventListener('input',() => ({equipos:renderTeams,jugadores:renderPlayers,partidos:renderMatches}[el.dataset.search]())));
+  $('#match-filter').addEventListener('change',renderMatches);
+  $('#export-btn').addEventListener('click',() => {
+    const file = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(file);
+    const link = document.createElement('a');
+    link.href=url;link.download='liga-pro-respaldo.json';document.body.appendChild(link);link.click();link.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    toast('Respaldo JSON descargado.');
+  });
+  $('#form-import').addEventListener('submit',async event => {
+    event.preventDefault();
+    if (!confirm('¿Restaurar el archivo? Los datos actuales serán sustituidos. Descarga antes un respaldo si lo necesitas.')) return;
+    const ok = await mutate('importar','POST',new FormData(event.currentTarget),'Respaldo importado correctamente.');
+    if (ok) event.currentTarget.reset();
+  });
+  $('#reset-demo').addEventListener('click',() => {
+    if (!confirm('¿Restablecer todos los datos de ejemplo? Se borrarán los cambios guardados en este navegador.')) return;
+    try {saveLocal(exampleData());render();showView('inicio');toast('Demostración reiniciada.');}
+    catch(e){toast(e.message,true);}
+  });
+}
+
+async function start() {
+  $('#today-date').textContent = new Intl.DateTimeFormat('es-PE',{day:'numeric',month:'short',year:'numeric'}).format(new Date());
+  $('#partido-fecha').value = new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);
+  bindForms(); bindButtons();
+  try {data = await api('estado'); render();} catch (e) {toast(e.message,true);}
+}
+start();
+
+</script>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header">
+      <button class="brand" data-go="inicio" aria-label="Ir al resumen"><span class="brand-mark"><span>✳</span></span><span class="brand-word">ARENA<span>26</span><small>BASKET LEAGUE OS</small></span></button>
+      <nav class="nav-pills" aria-label="Navegación principal">
+        <button class="nav-link active" data-view="inicio">Dashboard</button>
+        <button class="nav-link" data-view="equipos">Equipos</button>
+        <button class="nav-link" data-view="jugadores">Jugadores</button>
+        <button class="nav-link" data-view="partidos">Calendario</button>
+        <button class="nav-link" data-view="posiciones">Ranking</button>
+        <button class="nav-link" data-view="respaldo">Datos</button>
+      </nav>
+      <div class="header-tag"><span class="live-dot"></span> TEMPORADA 2026 <span class="header-tag-arrow">↗</span></div>
+    </header>
+
+    <main>
+      <div class="page-head">
+        <div><p class="breadcrumb">ARENA / LIGA / <span>CONTROL DE TORNEO</span></p><h1 id="page-title">El centro del juego<span class="dot-title">.</span></h1><p id="page-subtitle" class="page-intro">Un nuevo nivel para administrar tu liga de básquetbol.</p></div>
+        <div class="head-side"><span class="date-label" id="today-date"></span><button class="btn btn-accent" data-go="partidos">＋ Crear partido <span>↗</span></button></div>
+      </div>
+
+      <section id="view-inicio" class="view">
+        <div class="hero">
+          <div class="court-lines" aria-hidden="true"><svg viewBox="0 0 540 300" fill="none"><rect x="1" y="1" width="538" height="298" rx="28" stroke="currentColor"/><path d="M270 1V299" stroke="currentColor"/><circle cx="270" cy="150" r="68" stroke="currentColor"/><path d="M1 70H85V230H1M539 70H455V230H539" stroke="currentColor"/><path d="M85 100A50 50 0 0 1 85 200M455 100A50 50 0 0 0 455 200" stroke="currentColor"/></svg></div>
+          <div class="hero-copy">
+            <div class="tag-row"><span class="status-pill"><span class="mini-pulse"></span> LIGA EN MARCHA</span><span class="tag-year">SEASON // 2026</span></div>
+            <h2>EL JUEGO<br><span>NO SE DETIENE.</span></h2>
+            <p>Cada partido cuenta. Controla tu campeonato, registra cada punto y compite por la cima.</p>
+            <button class="btn btn-white" data-go="posiciones">Explorar clasificación <span>↗</span></button>
+          </div>
+          <div class="match-display">
+            <div class="display-top"><span>PRÓXIMO ENCUENTRO</span><span class="display-live"><span></span> PROGRAMADO</span></div>
+            <div class="match-lineup"><div class="match-club"><span class="club-orbit">H</span><strong id="hero-local">HALCONES</strong><small>LOCAL</small></div><div class="match-vs">VS</div><div class="match-club"><span class="club-orbit away">A</span><strong id="hero-visitante">ÁGUILAS</strong><small>VISITANTE</small></div></div>
+            <div class="display-bottom"><span>🏀 PARTIDO DE LIGA</span><strong id="hero-fecha">PRÓXIMAMENTE</strong></div>
+          </div>
+        </div>
+
+        <div class="section-title"><div><span class="section-index">01 — PANORAMA</span><h3>La liga en números</h3></div><span class="section-side">ACTUALIZACIÓN AUTOMÁTICA <span class="green-dot"></span></span></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-symbol">◈</span><p>EQUIPOS ACTIVOS</p><div class="stat-number"><strong id="stat-equipos">0</strong><span>CLUBES</span></div><div class="stat-track"><span class="track-lime"></span></div></article>
+          <article class="stat-card"><span class="stat-symbol">♟</span><p>JUGADORES</p><div class="stat-number"><strong id="stat-jugadores">0</strong><span>ATLETAS</span></div><div class="stat-track"><span class="track-purple"></span></div></article>
+          <article class="stat-card"><span class="stat-symbol">⌁</span><p>POR DISPUTAR</p><div class="stat-number"><strong id="stat-partidos">0</strong><span>ENCUENTROS</span></div><div class="stat-track"><span class="track-blue"></span></div></article>
+          <article class="stat-card"><span class="stat-symbol">✓</span><p>FINALIZADOS</p><div class="stat-number"><strong id="stat-finalizados">0</strong><span>RESULTADOS</span></div><div class="stat-track"><span class="track-pink"></span></div></article>
+        </div>
+        <div class="dashboard-grid">
+          <div class="panel"><div class="panel-heading"><div><span class="section-index">02 — FIXTURES</span><h3>Lo que viene <span class="heading-star">✳</span></h3><p>Encuentros programados para los próximos días.</p></div><button class="btn btn-outline" data-go="partidos">Ver calendario ↗</button></div><div id="home-matches" class="table-wrap"></div></div>
+          <div class="panel"><div class="panel-heading"><div><span class="section-index">03 — TOP CLUBES</span><h3>El podio <span class="heading-star">★</span></h3><p>Los equipos que mandan en la cancha.</p></div><button class="round-action" data-go="posiciones" aria-label="Ver ranking">↗</button></div><div id="home-standings" class="leaders"></div></div>
+        </div>
+      </section>
+
+      <section id="view-equipos" class="view hidden"><div class="panel big-panel"><div class="panel-heading"><div><span class="section-index">01 — CLUB MANAGER</span><h3>Equipos de la liga <span class="heading-star">◈</span></h3><p>Organiza los clubes y sus entrenadores.</p></div><span class="module-badge">CLUBES</span></div><form id="form-equipo" class="form-grid"><label>Nombre del equipo<input name="nombre" required minlength="2" maxlength="60" placeholder="Ej. Cóndores BC"></label><label>Director técnico<input name="entrenador" maxlength="60" placeholder="Nombre del entrenador"></label><label>Ciudad<input name="ciudad" maxlength="60" placeholder="Ej. Abancay"></label><button class="btn btn-accent form-button">＋ Registrar equipo</button></form><div class="table-toolbar"><h4>Todos los equipos <span id="count-equipos" class="count">0</span></h4><input class="search-input" data-search="equipos" placeholder="⌕  Buscar equipo o ciudad" aria-label="Buscar equipos"></div><div id="list-equipos" class="table-wrap"></div></div></section>
+
+      <section id="view-jugadores" class="view hidden"><div class="panel big-panel"><div class="panel-heading"><div><span class="section-index">02 — ROSTER CONTROL</span><h3>Plantillas y dorsales <span class="heading-star">♟</span></h3><p>Registra a los jugadores que hacen la diferencia.</p></div><span class="module-badge">ATLETAS</span></div><form id="form-jugador" class="form-grid"><label>Nombre completo<input name="nombre" required minlength="2" maxlength="80" placeholder="Nombre del jugador"></label><label>Dorsal<input name="numero" type="number" required min="0" max="99" placeholder="Ej. 23"></label><label>Club<select name="equipo" id="jugador-equipo" required></select></label><button class="btn btn-accent form-button">＋ Añadir jugador</button></form><div class="table-toolbar"><h4>Plantillas <span id="count-jugadores" class="count">0</span></h4><input class="search-input" data-search="jugadores" placeholder="⌕  Buscar jugador o club" aria-label="Buscar jugadores"></div><div id="list-jugadores" class="table-wrap"></div></div></section>
+
+      <section id="view-partidos" class="view hidden"><div class="panel big-panel"><div class="panel-heading"><div><span class="section-index">03 — MATCH CENTER</span><h3>Calendario oficial <span class="heading-star">⌁</span></h3><p>Programa encuentros y anota los resultados.</p></div><span class="module-badge">FIXTURES</span></div><form id="form-partido" class="form-grid"><label>Club local<select name="local" id="partido-local" required></select></label><label>Club visitante<select name="visitante" id="partido-visitante" required></select></label><label>Fecha de juego<input type="date" name="fecha" id="partido-fecha" required></label><button class="btn btn-accent form-button">＋ Programar juego</button></form><div class="table-toolbar"><h4>Todos los partidos <span id="count-partidos" class="count">0</span></h4><div class="filters"><select id="match-filter" aria-label="Filtrar encuentros"><option value="todos">Todos los estados</option><option value="programado">Programados</option><option value="finalizado">Finalizados</option></select><input class="search-input" data-search="partidos" placeholder="⌕  Buscar clubes" aria-label="Buscar partidos"></div></div><div id="list-partidos" class="table-wrap"></div></div></section>
+
+      <section id="view-posiciones" class="view hidden"><div class="panel big-panel"><div class="panel-heading"><div><span class="section-index">04 — LEAGUE RANKING</span><h3>La carrera por el título <span class="heading-star">★</span></h3><p>Los resultados actualizan esta clasificación al instante.</p></div><span class="module-badge">RANKING</span></div><div class="ranking-strip"><strong>EL CAMPEÓN SE GANA EN LA CANCHA.</strong><span>VICTORIAS · DIFERENCIA · PUNTOS</span></div><div id="list-posiciones" class="table-wrap"></div><p class="footnote">PJ = partidos jugados · PG = ganados · PP = perdidos · PF = puntos anotados · PC = puntos recibidos · DIF = diferencia.</p></div></section>
+
+      <section id="view-respaldo" class="view hidden"><div class="panel big-panel"><div class="panel-heading"><div><span class="section-index">05 — DATA CONTROL</span><h3>Tu liga, tus datos <span class="heading-star">↗</span></h3><p>Guarda una copia o vuelve a los resultados de demostración.</p></div><span class="module-badge">BACKUP</span></div><div class="backup-grid"><div class="backup-card"><span class="backup-icon">↓</span><h4>Exportar campeonato</h4><p>Descarga los equipos, jugadores y resultados en un archivo JSON.</p><button id="export-btn" class="btn btn-accent">↓ Descargar JSON</button></div><div class="backup-card"><span class="backup-icon">↑</span><h4>Importar respaldo</h4><p>Restaura los registros de esta aplicación desde un archivo JSON.</p><form id="form-import"><input type="file" name="archivo" accept=".json,application/json" required><button class="btn btn-outline">↑ Restaurar datos</button></form></div></div><div class="demo-reset"><div><strong>¿VOLVEMOS A JUGAR?</strong><p>Restaura los equipos y resultados de ejemplo para repetir tu presentación.</p></div><button id="reset-demo" class="btn btn-outline">↻ Reiniciar demostración</button></div></div></section>
+
+      <footer><span>✳</span> ARENA 26 — BASKET LEAGUE OS <span class="footer-right">PROYECTO ACADÉMICO · DATOS GUARDADOS EN ESTE NAVEGADOR</span></footer>
+    </main>
+  </div>
+
+  <dialog id="record-dialog"><form id="form-dialog"><header class="modal-header"><div><span class="section-index" id="modal-kicker">EDITAR</span><h3 id="modal-title">Modificar registro</h3></div><button type="button" class="icon-button" data-close aria-label="Cerrar">✕</button></header><div id="modal-fields" class="modal-fields"></div><div class="modal-actions"><button type="button" class="btn btn-ghost" data-close>Cancelar</button><button class="btn btn-accent">Guardar cambios</button></div></form></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
